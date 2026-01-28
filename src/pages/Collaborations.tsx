@@ -12,7 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
   TableBody,
@@ -38,19 +37,14 @@ import {
   ExternalLink,
   UserPlus,
   Mail,
-  Calendar,
-  CheckCircle2,
-  Plus,
   ChevronDown,
   Bookmark,
+  Plus,
 } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { MemberDetailSheet } from "@/components/members/MemberDetailSheet";
 import { MetricsWidget } from "@/components/collaborations/MetricsWidget";
 import { Link, useNavigate } from "react-router-dom";
-import { useCampaigns, Campaign } from "@/contexts/CampaignsContext";
 
 interface Member {
   id: string;
@@ -165,19 +159,6 @@ const mockMembers: Member[] = [
 ];
 
 
-const getCampaignStatusBadgeVariant = (status: Campaign["status"]) => {
-  switch (status) {
-    case "active":
-      return "default";
-    case "draft":
-      return "secondary";
-    case "completed":
-      return "outline";
-    default:
-      return "default";
-  }
-};
-
 const getStatusBadgeVariant = (status: Member["status"]) => {
   switch (status) {
     case "active":
@@ -213,17 +194,12 @@ export default function Collaborations() {
   const [detailSheetOpen, setDetailSheetOpen] = useState(false);
   const [shortlist, setShortlist] = useState<string[]>([]);
   const { toast } = useToast();
-  const { campaigns } = useCampaigns();
 
   // Filter states
   const [savedView, setSavedView] = useState("all");
   const [projectFilter, setProjectFilter] = useState("all");
   const [tagFilter, setTagFilter] = useState("all");
   const [groupFilter, setGroupFilter] = useState("all");
-
-  const handleCampaignClick = (campaign: Campaign) => {
-    navigate(`/collaborations/${campaign.id}`);
-  };
 
   const handleRowClick = (member: Member) => {
     setSelectedMember(member);
@@ -439,37 +415,34 @@ export default function Collaborations() {
         {/* Metrics Widget */}
         <MetricsWidget />
 
-        <Tabs defaultValue="members">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <TabsList>
-              <TabsTrigger value="members">All Members</TabsTrigger>
-              <TabsTrigger value="campaigns">Campaigns</TabsTrigger>
-            </TabsList>
-            <div className="flex items-center gap-2">
-              <div className="relative flex-1 sm:w-64">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Search members..."
-                  className="pl-9"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-[140px]">
-                  <SelectValue placeholder="Status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="inactive">Inactive</SelectItem>
-                </SelectContent>
-              </Select>
+        {/* Search and Filter Section */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2">
+            <div className="relative flex-1 sm:w-64">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search members..."
+                className="pl-9"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[140px]">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="active">Active</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="inactive">Inactive</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
+        </div>
 
-          <TabsContent value="members" className="mt-6">
+        {/* Members Table */}
+        <div className="mt-6">
             <div className="rounded-md border">
               <Table>
                 <TableHeader>
@@ -642,100 +615,7 @@ export default function Collaborations() {
                 </div>
               </div>
             )}
-          </TabsContent>
-
-          <TabsContent value="campaigns" className="mt-6">
-            <div className="flex justify-end mb-4">
-              <Button asChild>
-                <Link to="/campaigns/new">
-                  <Plus className="mr-2 h-4 w-4" />
-                  New Campaign
-                </Link>
-              </Button>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {campaigns.map((campaign) => (
-                <Card 
-                  key={campaign.id} 
-                  className="overflow-hidden cursor-pointer transition-shadow hover:shadow-md"
-                  onClick={() => handleCampaignClick(campaign)}
-                >
-                  <CardHeader className="pb-2">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle className="text-base">
-                          {campaign.name}
-                        </CardTitle>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {campaign.template}
-                        </p>
-                      </div>
-                      <Badge
-                        variant={getCampaignStatusBadgeVariant(campaign.status)}
-                      >
-                        {campaign.status.charAt(0).toUpperCase() +
-                          campaign.status.slice(1)}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="h-4 w-4" />
-                      <span>
-                        {campaign.startDate} - {campaign.endDate}
-                      </span>
-                    </div>
-
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm flex items-center gap-1.5">
-                          <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
-                          Tasks
-                        </span>
-                        <span className="text-sm font-medium">
-                          {campaign.tasksCompleted}/{campaign.totalTasks}
-                        </span>
-                      </div>
-                      <Progress
-                        value={
-                          (campaign.tasksCompleted / campaign.totalTasks) * 100
-                        }
-                        className="h-2"
-                      />
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-2">
-                        {campaign.memberCount} Members
-                      </p>
-                      <div className="flex -space-x-2">
-                        {campaign.members.slice(0, 5).map((member, idx) => (
-                          <Avatar
-                            key={member.id}
-                            className="h-8 w-8 border-2 border-background"
-                          >
-                            <AvatarImage src={member.avatar} />
-                            <AvatarFallback className="text-xs">
-                              {member.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
-                            </AvatarFallback>
-                          </Avatar>
-                        ))}
-                        {campaign.memberCount > 5 && (
-                          <div className="h-8 w-8 rounded-full bg-muted border-2 border-background flex items-center justify-center text-xs font-medium">
-                            +{campaign.memberCount - 5}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+        </div>
       </div>
 
       <MemberDetailSheet

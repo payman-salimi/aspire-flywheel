@@ -473,7 +473,7 @@ export default function Assets() {
 
         <Tabs defaultValue="all">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <TabsList>
+            <TabsList variant="line">
               <TabsTrigger value="all">All Assets</TabsTrigger>
               <TabsTrigger value="ready">Ready for Ads ({readyAssets.length})</TabsTrigger>
               <TabsTrigger value="pending">Pending Review ({pendingAssets.length})</TabsTrigger>

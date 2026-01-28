@@ -1,8 +1,16 @@
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppSidebar } from "./AppSidebar";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { Bell, Plus } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import { X } from "lucide-react";
+import { AspireAIPanel } from "@/components/ai/AspireAIPanel";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -12,14 +20,26 @@ interface AppLayoutProps {
 }
 
 export function AppLayout({ children, title, description, actions }: AppLayoutProps) {
+  const [isAIPanelOpen, setIsAIPanelOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const isAIPage = location.pathname === "/automation";
+
+  const handleAIButtonClick = () => {
+    if (isAIPage) {
+      navigate(-1); // Go back to previous page
+    } else {
+      setIsAIPanelOpen(true);
+    }
+  };
+
   return (
-    <SidebarProvider>
+    <div className="flex h-screen bg-background">
       <AppSidebar />
-      <SidebarInset>
+      <div className="flex-1 flex flex-col overflow-hidden">
         <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-border bg-card px-6">
           <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
             {title && (
               <div>
                 <h1 className="text-lg font-semibold">{title}</h1>
@@ -31,16 +51,34 @@ export function AppLayout({ children, title, description, actions }: AppLayoutPr
           </div>
           <div className="flex items-center gap-2">
             {actions}
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="h-4 w-4" />
-              <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-destructive" />
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleAIButtonClick}
+                    className="relative"
+                  >
+                    {isAIPage ? (
+                      <X className="h-5 w-5" />
+                    ) : (
+                      <AutoAwesomeIcon sx={{ fontSize: 20 }} />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{isAIPage ? "Close AI Agent" : "Let Aspire AI handle the heavy lifting."}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </header>
         <main className="flex-1 overflow-auto p-6">
           {children}
         </main>
-      </SidebarInset>
-    </SidebarProvider>
+      </div>
+      <AspireAIPanel open={isAIPanelOpen} onOpenChange={setIsAIPanelOpen} />
+    </div>
   );
 }

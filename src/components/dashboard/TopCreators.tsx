@@ -260,7 +260,7 @@ export function TopCreators() {
       <Tabs defaultValue="advocate" className="w-full">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
-            <TabsList className="h-9">
+            <TabsList variant="line" className="h-9">
               <TabsTrigger value="advocate" className="text-sm">Top Advocate</TabsTrigger>
               <TabsTrigger value="seller" className="text-sm">Top Seller</TabsTrigger>
             </TabsList>

@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Creators from "./pages/Creators";
 import LandingPageWizard from "./pages/LandingPageWizard";
 import Collaborations from "./pages/Collaborations";
+import Campaigns from "./pages/Campaigns";
 import CampaignPlanner from "./pages/CampaignPlanner";
 import CampaignDetail from "./pages/CampaignDetail";
 import NewCollaboration from "./pages/NewCollaboration";
@@ -16,7 +17,8 @@ import NewCampaign from "./pages/NewCampaign";
 import Assets from "./pages/Assets";
 import Analytics from "./pages/Analytics";
 import Templates from "./pages/Templates";
-import Automation from "./pages/Automation";
+import AIAgent from "./pages/AIAgent";
+import AIHistory from "./pages/AIHistory";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import PortalAuth from "./pages/portal/PortalAuth";
@@ -42,12 +44,14 @@ const App = () => (
               <Route path="/collaborations/:id" element={<CampaignDetail />} />
               <Route path="/collaborations/new" element={<NewCollaboration />} />
               <Route path="/collaborations/planner" element={<CampaignPlanner />} />
+              <Route path="/campaigns" element={<Campaigns />} />
               <Route path="/campaigns/new" element={<NewCampaign />} />
               <Route path="/campaigns/create" element={<NewCollaboration />} />
               <Route path="/assets" element={<Assets />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/templates" element={<Templates />} />
-              <Route path="/automation" element={<Automation />} />
+              <Route path="/automation" element={<AIAgent />} />
+              <Route path="/automation/history" element={<AIHistory />} />
               <Route path="/settings" element={<Settings />} />
               {/* Creator Portal Routes */}
               <Route path="/portal/auth" element={<PortalAuth />} />

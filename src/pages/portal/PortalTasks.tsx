@@ -172,7 +172,7 @@ export default function PortalTasks() {
         </div>
 
         <Tabs defaultValue="pending">
-          <TabsList>
+          <TabsList variant="line">
             <TabsTrigger value="pending" className="gap-2">
               <Clock className="h-4 w-4" />
               Pending ({pendingTasks.length})
@@ -249,7 +249,7 @@ export default function PortalTasks() {
                 </DialogHeader>
 
                 <Tabs defaultValue="submit" className="mt-4">
-                  <TabsList className="w-full">
+                  <TabsList variant="line" className="w-full">
                     <TabsTrigger value="submit" className="flex-1">Submit Content</TabsTrigger>
                     <TabsTrigger value="feedback" className="flex-1">
                       Feedback ({comments.length})

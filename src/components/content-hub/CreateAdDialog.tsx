@@ -667,7 +667,7 @@ export function CreateAdDialog({ open, onOpenChange, asset, onSubmit, initialSte
                       </div>
                     </div>
                   )}
-                  <TabsList>
+                  <TabsList variant="line">
                     <TabsTrigger value="mobile" className="gap-2">
                       <Smartphone className="h-4 w-4" />
                       Mobile

@@ -240,7 +240,7 @@ export function MemberDetailSheet({
         </SheetHeader>
 
         <Tabs defaultValue="metrics" className="mt-2">
-          <TabsList className="w-full grid grid-cols-3">
+          <TabsList variant="line" className="w-full grid grid-cols-3">
             <TabsTrigger value="metrics">Metrics</TabsTrigger>
             <TabsTrigger value="campaigns">Campaigns</TabsTrigger>
             <TabsTrigger value="content">Content</TabsTrigger>

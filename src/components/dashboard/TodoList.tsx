@@ -168,7 +168,7 @@ export function TodoList() {
       </CardHeader>
       <CardContent>
         <Tabs value={category} onValueChange={(v) => setCategory(v as TaskCategory | "all")}>
-          <TabsList className="mb-4 h-auto flex-wrap">
+          <TabsList variant="line" className="mb-4 h-auto flex-wrap">
             <TabsTrigger value="all" className="text-xs">All</TabsTrigger>
             <TabsTrigger value="applicant" className="text-xs">Applicants</TabsTrigger>
             <TabsTrigger value="content" className="text-xs">Content</TabsTrigger>

@@ -198,7 +198,7 @@ export default function Analytics() {
                 <CardDescription>Top performing creators by attributed revenue</CardDescription>
               </div>
               <Tabs defaultValue="revenue">
-                <TabsList>
+                <TabsList variant="line">
                   <TabsTrigger value="revenue">Revenue</TabsTrigger>
                   <TabsTrigger value="orders">Orders</TabsTrigger>
                   <TabsTrigger value="cvr">CVR</TabsTrigger>

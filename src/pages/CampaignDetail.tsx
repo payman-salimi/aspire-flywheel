@@ -521,7 +521,7 @@ export default function CampaignDetail() {
 
         {/* Tabs */}
         <Tabs defaultValue="members">
-          <TabsList>
+          <TabsList variant="line">
             <TabsTrigger value="members">Members</TabsTrigger>
             <TabsTrigger value="tasks">Tasks</TabsTrigger>
             <TabsTrigger value="content">Content</TabsTrigger>

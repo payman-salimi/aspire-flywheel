@@ -447,7 +447,7 @@ export default function Creators() {
       <div className="space-y-6">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <TabsList>
+            <TabsList variant="line">
               <TabsTrigger value="discover">Discover</TabsTrigger>
               <TabsTrigger value="customers">Customers</TabsTrigger>
               <TabsTrigger value="mentions">Mentions</TabsTrigger>

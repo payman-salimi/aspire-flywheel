@@ -47,7 +47,7 @@ export default function Settings() {
     <AppLayout title="Settings" description="Manage your workspace settings">
       <div className="space-y-6">
         <Tabs defaultValue="workspace" className="space-y-6">
-          <TabsList>
+          <TabsList variant="line">
             <TabsTrigger value="workspace">
               <Building className="mr-2 h-4 w-4" />
               Workspace
