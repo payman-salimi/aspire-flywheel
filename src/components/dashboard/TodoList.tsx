@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
@@ -12,243 +10,222 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import RateReviewIcon from "@mui/icons-material/RateReview";
-import InventoryIcon from "@mui/icons-material/Inventory";
-import DescriptionIcon from "@mui/icons-material/Description";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { ChevronDown, ChevronUp, Filter, MoreVertical, CheckCircle, Edit3, Users, Upload } from "lucide-react";
 
-type TaskCategory = "applicant" | "content" | "product" | "brief";
-type TimeFilter = "all" | "today" | "this_week" | "this_month";
-type AssigneeFilter = "all" | "me";
-
-interface Task {
+interface ActivityItem {
   id: string;
+  type: "brief_signed" | "brief_edit" | "application" | "content_submitted";
   title: string;
-  category: TaskCategory;
-  creator: string;
-  avatar: string;
-  collaboration: string;
-  dueDate: string;
-  assignedTo: string;
-  priority: "high" | "medium" | "low";
+  description: string;
+  timestamp: string;
+  isRecent: boolean;
+  actions?: { label: string; variant?: "default" | "outline" }[];
+  images?: string[];
 }
 
-const tasks: Task[] = [
+const activities: ActivityItem[] = [
   {
     id: "1",
-    title: "Review application",
-    category: "applicant",
-    creator: "Sarah Johnson",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
-    collaboration: "Summer Collection Launch",
-    dueDate: "Today",
-    assignedTo: "me",
-    priority: "high",
+    type: "brief_signed",
+    title: "Brief signed",
+    description: "3 creators signed brief to Ambassador Campaign",
+    timestamp: "Now",
+    isRecent: true,
+    actions: [{ label: "View Signed Briefs", variant: "outline" }],
   },
   {
     id: "2",
-    title: "Approve video content",
-    category: "content",
-    creator: "Mike Chen",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    collaboration: "Product Review Campaign",
-    dueDate: "Today",
-    assignedTo: "me",
-    priority: "high",
+    type: "brief_signed",
+    title: "Brief signed",
+    description: "4 creators signed brief to Summer 2026 Campaign",
+    timestamp: "Now",
+    isRecent: true,
+    actions: [{ label: "View Signed Briefs", variant: "outline" }],
   },
   {
     id: "3",
-    title: "Confirm product shipment",
-    category: "product",
-    creator: "Emily Davis",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-    collaboration: "Holiday Promo",
-    dueDate: "Tomorrow",
-    assignedTo: "team",
-    priority: "medium",
+    type: "brief_edit",
+    title: "Brief edit requested",
+    description: "Kim Vuong requested edits to brief",
+    timestamp: "1 minute ago",
+    isRecent: true,
+    actions: [
+      { label: "Review", variant: "default" },
+      { label: "Edit", variant: "outline" },
+    ],
   },
   {
     id: "4",
-    title: "Review creative brief",
-    category: "brief",
-    creator: "Alex Rivera",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-    collaboration: "New Year Campaign",
-    dueDate: "This week",
-    assignedTo: "me",
-    priority: "medium",
+    type: "brief_signed",
+    title: "Brief signed",
+    description: "12 creators signed brief to Ambassador Campaign",
+    timestamp: "1 hr ago",
+    isRecent: false,
+    actions: [{ label: "View Signed Briefs", variant: "outline" }],
   },
   {
     id: "5",
-    title: "Review new applicant",
-    category: "applicant",
-    creator: "Jessica Kim",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-    collaboration: "Spring Collection",
-    dueDate: "This week",
-    assignedTo: "team",
-    priority: "low",
+    type: "application",
+    title: "New application received",
+    description: "48 creators applied to campaign 2026 ambassadors",
+    timestamp: "3 hours ago",
+    isRecent: false,
+    actions: [{ label: "View All Applicant", variant: "outline" }],
   },
   {
     id: "6",
-    title: "Approve reel submission",
-    category: "content",
-    creator: "David Park",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-    collaboration: "Summer Collection Launch",
-    dueDate: "Today",
-    assignedTo: "me",
-    priority: "high",
+    type: "content_submitted",
+    title: "Content submitted",
+    description: "Samantha Rivers submitted 2 content",
+    timestamp: "3 hours ago",
+    isRecent: false,
+    images: [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=150&h=150&fit=crop",
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=150&h=150&fit=crop",
+    ],
+    actions: [
+      { label: "Approve", variant: "default" },
+      { label: "Reject", variant: "outline" },
+    ],
   },
 ];
 
-const categoryConfig: Record<TaskCategory, { label: string; icon: typeof PersonAddIcon; className: string }> = {
-  applicant: { label: "Applicant Review", icon: PersonAddIcon, className: "bg-blue-100 text-blue-700 border-blue-200" },
-  content: { label: "Content Review", icon: RateReviewIcon, className: "bg-purple-100 text-purple-700 border-purple-200" },
-  product: { label: "Product Review", icon: InventoryIcon, className: "bg-amber-100 text-amber-700 border-amber-200" },
-  brief: { label: "Brief Activities", icon: DescriptionIcon, className: "bg-green-100 text-green-700 border-green-200" },
-};
-
-const priorityColors: Record<string, string> = {
-  high: "bg-red-100 text-red-700 border-red-200",
-  medium: "bg-amber-100 text-amber-700 border-amber-200",
-  low: "bg-gray-100 text-gray-700 border-gray-200",
+const activityIcons = {
+  brief_signed: { icon: CheckCircle, className: "bg-green-100 text-green-600" },
+  brief_edit: { icon: Edit3, className: "bg-blue-100 text-blue-600" },
+  application: { icon: Users, className: "bg-purple-100 text-purple-600" },
+  content_submitted: { icon: Upload, className: "bg-orange-100 text-orange-600" },
 };
 
 export function TodoList() {
-  const [category, setCategory] = useState<TaskCategory | "all">("all");
-  const [timeFilter, setTimeFilter] = useState<TimeFilter>("all");
-  const [assigneeFilter, setAssigneeFilter] = useState<AssigneeFilter>("all");
+  const [timeFilter, setTimeFilter] = useState("this_week");
+  const [isTodayOpen, setIsTodayOpen] = useState(true);
 
-  const filteredTasks = tasks.filter((task) => {
-    if (category !== "all" && task.category !== category) return false;
-    if (assigneeFilter === "me" && task.assignedTo !== "me") return false;
-    if (timeFilter === "today" && task.dueDate !== "Today") return false;
-    if (timeFilter === "this_week" && !["Today", "Tomorrow", "This week"].includes(task.dueDate)) return false;
-    return true;
-  });
-
-  const groupedTasks = filteredTasks.reduce((acc, task) => {
-    if (!acc[task.category]) acc[task.category] = [];
-    acc[task.category].push(task);
-    return acc;
-  }, {} as Record<TaskCategory, Task[]>);
+  const todayActivities = activities;
+  const todayCount = todayActivities.length;
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <div>
-            <CardTitle>My To-Do List</CardTitle>
-            <CardDescription>Tasks requiring your attention</CardDescription>
-          </div>
+          <CardTitle>Activity Feed</CardTitle>
           <div className="flex items-center gap-2">
-            <Select value={assigneeFilter} onValueChange={(v) => setAssigneeFilter(v as AssigneeFilter)}>
-              <SelectTrigger className="w-[120px] h-8">
+            <Select value={timeFilter} onValueChange={setTimeFilter}>
+              <SelectTrigger className="w-[120px] h-9">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Tasks</SelectItem>
-                <SelectItem value="me">Assigned to Me</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select value={timeFilter} onValueChange={(v) => setTimeFilter(v as TimeFilter)}>
-              <SelectTrigger className="w-[120px] h-8">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Time</SelectItem>
-                <SelectItem value="today">Today</SelectItem>
                 <SelectItem value="this_week">This Week</SelectItem>
+                <SelectItem value="today">Today</SelectItem>
                 <SelectItem value="this_month">This Month</SelectItem>
               </SelectContent>
             </Select>
+            <Button variant="ghost" size="icon" className="h-9 w-9">
+              <Filter className="h-4 w-4" />
+            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-9 w-9">
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>Mark all as read</DropdownMenuItem>
+                <DropdownMenuItem>View settings</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <Tabs value={category} onValueChange={(v) => setCategory(v as TaskCategory | "all")}>
-          <TabsList variant="line" className="mb-4 h-auto flex-wrap">
-            <TabsTrigger value="all" className="text-xs">All</TabsTrigger>
-            <TabsTrigger value="applicant" className="text-xs">Applicants</TabsTrigger>
-            <TabsTrigger value="content" className="text-xs">Content</TabsTrigger>
-            <TabsTrigger value="product" className="text-xs">Product</TabsTrigger>
-            <TabsTrigger value="brief" className="text-xs">Briefs</TabsTrigger>
-          </TabsList>
-
-          <ScrollArea className="h-[320px] pr-4">
-            <div className="space-y-4">
-              {category === "all" ? (
-                Object.entries(groupedTasks).map(([cat, catTasks]) => {
-                  const config = categoryConfig[cat as TaskCategory];
-                  const CategoryIcon = config.icon;
-                  return (
-                    <div key={cat} className="space-y-2">
-                      <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                        <CategoryIcon sx={{ fontSize: 16 }} />
-                        <span>{config.label}</span>
-                        <Badge variant="secondary" className="ml-auto text-xs">
-                          {catTasks.length}
-                        </Badge>
-                      </div>
-                      {catTasks.map((task) => (
-                        <TaskItem key={task.id} task={task} />
-                      ))}
-                    </div>
-                  );
-                })
+        <ScrollArea className="h-[500px] pr-4">
+          <Collapsible open={isTodayOpen} onOpenChange={setIsTodayOpen}>
+            <CollapsibleTrigger className="flex items-center justify-between w-full py-2 hover:bg-muted/50 rounded-md px-2 transition-colors">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium">Today</span>
+                <Badge variant="secondary" className="text-xs">
+                  {todayCount}
+                </Badge>
+              </div>
+              {isTodayOpen ? (
+                <ChevronUp className="h-4 w-4 text-muted-foreground" />
               ) : (
-                filteredTasks.map((task) => (
-                  <TaskItem key={task.id} task={task} />
-                ))
+                <ChevronDown className="h-4 w-4 text-muted-foreground" />
               )}
-              {filteredTasks.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-8 text-center">
-                  <p className="text-muted-foreground">No tasks found</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Try adjusting your filters
-                  </p>
-                </div>
-              )}
-            </div>
-          </ScrollArea>
-        </Tabs>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="mt-2">
+              <div className="space-y-4">
+                {todayActivities.map((activity) => (
+                  <ActivityItemCard key={activity.id} activity={activity} />
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+        </ScrollArea>
       </CardContent>
     </Card>
   );
 }
 
-function TaskItem({ task }: { task: Task }) {
-  const config = categoryConfig[task.category];
-  const CategoryIcon = config.icon;
+function ActivityItemCard({ activity }: { activity: ActivityItem }) {
+  const iconConfig = activityIcons[activity.type];
+  const Icon = iconConfig.icon;
 
   return (
-    <div className="flex items-center gap-3 rounded-lg border border-border p-3 transition-colors hover:bg-accent/50">
-      <Avatar className="h-9 w-9">
-        <AvatarImage src={task.avatar} />
-        <AvatarFallback className="bg-primary/10 text-primary text-xs">
-          {task.creator.split(" ").map((n) => n[0]).join("")}
-        </AvatarFallback>
-      </Avatar>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2">
-          <p className="text-sm font-medium truncate">{task.title}</p>
-          <Badge variant="outline" className={`text-xs shrink-0 ${priorityColors[task.priority]}`}>
-            {task.priority}
-          </Badge>
-        </div>
-        <p className="text-xs text-muted-foreground truncate">
-          {task.creator} · {task.collaboration}
-        </p>
+    <div className="flex gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors border border-transparent hover:border-border">
+      <div className={`h-10 w-10 rounded-full flex items-center justify-center shrink-0 ${iconConfig.className}`}>
+        <Icon className="h-5 w-5" />
       </div>
-      <div className="flex flex-col items-end gap-1">
-        <Badge variant="outline" className={`text-xs ${config.className}`}>
-          <CategoryIcon sx={{ fontSize: 12 }} className="mr-1" />
-          {task.dueDate}
-        </Badge>
-        <Button variant="ghost" size="sm" className="h-6 text-xs">
-          Review
-        </Button>
+      <div className="flex-1 min-w-0 space-y-2">
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex-1 min-w-0">
+            <h4 className="text-sm font-medium">{activity.title}</h4>
+            <p className="text-xs text-muted-foreground mt-0.5">{activity.description}</p>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs text-muted-foreground">{activity.timestamp}</span>
+            {activity.isRecent && (
+              <div className="h-2 w-2 rounded-full bg-green-500" />
+            )}
+          </div>
+        </div>
+        {activity.images && activity.images.length > 0 && (
+          <div className="flex gap-2">
+            {activity.images.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Content ${index + 1}`}
+                className="h-16 w-16 rounded-md object-cover"
+              />
+            ))}
+          </div>
+        )}
+        {activity.actions && activity.actions.length > 0 && (
+          <div className="flex items-center gap-2">
+            {activity.actions.map((action, index) => (
+              <Button
+                key={index}
+                variant={action.variant || "outline"}
+                size="sm"
+                className="h-7 text-xs"
+              >
+                {action.label}
+              </Button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
