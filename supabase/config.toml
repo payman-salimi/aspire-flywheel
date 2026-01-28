@@ -1,0 +1,4 @@
+project_id = "ruwxndhoqlwynxbyivty"
+
+[functions.campaign-planner]
+verify_jwt = false
