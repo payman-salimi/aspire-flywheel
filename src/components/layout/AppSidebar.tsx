@@ -55,27 +55,24 @@ export function AppSidebar() {
       </nav>
 
       {/* Bottom Navigation */}
-      <div className="flex flex-col items-center gap-6 w-full border-t border-border pt-6">
-        <button className="flex flex-col items-center justify-center gap-1 w-full py-2 text-muted-foreground hover:text-foreground transition-colors">
+      <div className="flex flex-col items-center gap-3 w-full border-t border-border pt-6">
+        <button className="flex flex-col items-center justify-center w-full py-2 text-muted-foreground hover:text-foreground transition-colors">
           <SearchIcon sx={{ fontSize: 24 }} />
-          <span className="text-[10px] font-medium">Search</span>
         </button>
 
-        <button className="flex flex-col items-center justify-center gap-1 w-full py-2 text-muted-foreground hover:text-foreground transition-colors">
+        <button className="flex flex-col items-center justify-center w-full py-2 text-muted-foreground hover:text-foreground transition-colors">
           <MailOutlineIcon sx={{ fontSize: 24 }} />
-          <span className="text-[10px] font-medium">Messages</span>
         </button>
 
         <Link
           to="/settings"
-          className={`flex flex-col items-center justify-center gap-1 w-full py-2 transition-colors ${
+          className={`flex flex-col items-center justify-center w-full py-2 transition-colors ${
             isActive("/settings")
               ? "text-primary"
               : "text-muted-foreground hover:text-foreground"
           }`}
         >
           <SettingsIcon sx={{ fontSize: 24 }} />
-          <span className="text-[10px] font-medium">Settings</span>
         </Link>
 
         {/* User Avatar */}
