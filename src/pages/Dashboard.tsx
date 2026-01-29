@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Menu, ArrowUp, ArrowDown } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   return (
@@ -172,7 +173,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Recent Content - 3 items */}
+            {/* Recent Content - Horizontal Scroll */}
             <div className="bg-card rounded-lg border">
               <div className="p-6 pb-4 border-b">
                 <div className="flex items-center justify-between">
@@ -182,123 +183,209 @@ export default function Dashboard() {
                       Latest posts from your creators
                     </p>
                   </div>
-                  <Button variant="ghost" size="sm">
-                    More Content
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link to="/assets">More Content</Link>
                   </Button>
                 </div>
               </div>
               <div className="p-6">
-                <div className="grid grid-cols-3 gap-4">
-                  {/* Content Item 1 */}
-                  <div className="group cursor-pointer">
-                    <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
-                      <img
-                        src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=533&fit=crop"
-                        alt="Mason Wilson"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
-                        <svg
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                          />
-                        </svg>
-                      </div>
-                      <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
-                          <img
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
-                            alt="Mason Wilson"
-                            className="w-full h-full object-cover"
-                          />
+                <div className="relative">
+                  <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+                    {/* Content Item 1 */}
+                    <div className="group cursor-pointer flex-shrink-0 w-[180px]">
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=533&fit=crop"
+                          alt="Mason Wilson"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
                         </div>
-                        <span className="text-xs font-medium text-white drop-shadow-lg">
-                          Mason Wilson
-                        </span>
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Mason Wilson" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-xs font-medium text-white drop-shadow-lg">Mason Wilson</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Content Item 2 */}
-                  <div className="group cursor-pointer">
-                    <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
-                      <img
-                        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=533&fit=crop"
-                        alt="Sophia Anderson"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
-                        <svg
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                          />
-                        </svg>
-                      </div>
-                      <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
-                          <img
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
-                            alt="Sophia Anderson"
-                            className="w-full h-full object-cover"
-                          />
+                    {/* Content Item 2 */}
+                    <div className="group cursor-pointer flex-shrink-0 w-[180px]">
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=533&fit=crop"
+                          alt="Sophia Anderson"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
                         </div>
-                        <span className="text-xs font-medium text-white drop-shadow-lg">
-                          Sophia Anderson
-                        </span>
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face" alt="Sophia Anderson" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-xs font-medium text-white drop-shadow-lg">Sophia Anderson</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Content Item 3 */}
-                  <div className="group cursor-pointer">
-                    <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
-                      <img
-                        src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&h=533&fit=crop"
-                        alt="Noah Brown"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
-                        <svg
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                          />
-                        </svg>
-                      </div>
-                      <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
-                        <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
-                          <img
-                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
-                            alt="Noah Brown"
-                            className="w-full h-full object-cover"
-                          />
+                    {/* Content Item 3 */}
+                    <div className="group cursor-pointer flex-shrink-0 w-[180px]">
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&h=533&fit=crop"
+                          alt="Noah Brown"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
                         </div>
-                        <span className="text-xs font-medium text-white drop-shadow-lg">
-                          Noah Brown
-                        </span>
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" alt="Noah Brown" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-xs font-medium text-white drop-shadow-lg">Noah Brown</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content Item 4 */}
+                    <div className="group cursor-pointer flex-shrink-0 w-[180px]">
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=533&fit=crop"
+                          alt="Emma Davis"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
+                        </div>
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Emma Davis" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-xs font-medium text-white drop-shadow-lg">Emma Davis</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content Item 5 */}
+                    <div className="group cursor-pointer flex-shrink-0 w-[180px]">
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=533&fit=crop"
+                          alt="Alex Rivera"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
+                        </div>
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Alex Rivera" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-xs font-medium text-white drop-shadow-lg">Alex Rivera</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content Item 6 */}
+                    <div className="group cursor-pointer flex-shrink-0 w-[180px]">
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=533&fit=crop"
+                          alt="Marco Rossi"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
+                        </div>
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" alt="Marco Rossi" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-xs font-medium text-white drop-shadow-lg">Marco Rossi</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content Item 7 */}
+                    <div className="group cursor-pointer flex-shrink-0 w-[180px]">
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=533&fit=crop"
+                          alt="Nina Garcia"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
+                        </div>
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face" alt="Nina Garcia" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-xs font-medium text-white drop-shadow-lg">Nina Garcia</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content Item 8 */}
+                    <div className="group cursor-pointer flex-shrink-0 w-[180px]">
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&h=533&fit=crop"
+                          alt="Lucas Thompson"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
+                        </div>
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face" alt="Lucas Thompson" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-xs font-medium text-white drop-shadow-lg">Lucas Thompson</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content Item 9 */}
+                    <div className="group cursor-pointer flex-shrink-0 w-[180px]">
+                      <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3">
+                        <img
+                          src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=533&fit=crop"
+                          alt="Sarah Kim"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
+                        </div>
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center gap-2">
+                          <div className="h-8 w-8 rounded-full bg-white border-2 border-white overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face" alt="Sarah Kim" className="w-full h-full object-cover" />
+                          </div>
+                          <span className="text-xs font-medium text-white drop-shadow-lg">Sarah Kim</span>
+                        </div>
                       </div>
                     </div>
                   </div>
