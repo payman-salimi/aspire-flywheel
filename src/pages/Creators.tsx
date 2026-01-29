@@ -440,17 +440,30 @@ export default function Creators() {
   };
 
   return (
-    <AppLayout
-      title="Recruit"
-      description="Discover and manage your creator relationships"
-    >
-      <div className="space-y-6">
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
+    <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <AppLayout
+        title="Recruit"
+        description="Discover and manage your creator relationships"
+        tabs={
+          <TabsList className="bg-white/10 border-white/20">
+            <TabsTrigger
+              value="discover"
+              className="data-[state=active]:bg-white data-[state=active]:text-primary text-white/80 hover:text-white"
+            >
+              Discover
+            </TabsTrigger>
+            <TabsTrigger
+              value="applicant"
+              className="data-[state=active]:bg-white data-[state=active]:text-primary text-white/80 hover:text-white"
+            >
+              Applicants
+            </TabsTrigger>
+          </TabsList>
+        }
+      >
+        <div className="space-y-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <TabsList>
-              <TabsTrigger value="discover">Discover</TabsTrigger>
-              <TabsTrigger value="applicant">Applicants</TabsTrigger>
-            </TabsList>
+            <div />
             <div className="flex items-center gap-2">
               {activeTab === "applicant" && (
                 <Select value={applicantFilter} onValueChange={(v) => setApplicantFilter(v as typeof applicantFilter)}>
@@ -611,8 +624,8 @@ export default function Creators() {
               </div>
             )}
           </TabsContent>
-        </Tabs>
-      </div>
-    </AppLayout>
+        </div>
+      </AppLayout>
+    </Tabs>
   );
 }

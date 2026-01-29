@@ -17,9 +17,10 @@ interface AppLayoutProps {
   title?: string;
   description?: string;
   actions?: React.ReactNode;
+  tabs?: React.ReactNode;
 }
 
-export function AppLayout({ children, title, description, actions }: AppLayoutProps) {
+export function AppLayout({ children, title, description, actions, tabs }: AppLayoutProps) {
   const [isAIPanelOpen, setIsAIPanelOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -42,45 +43,52 @@ export function AppLayout({ children, title, description, actions }: AppLayoutPr
     <div className="flex h-screen bg-background">
       <AppSidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className={`flex h-16 shrink-0 items-center justify-between gap-2 border-b px-6 ${
+        <header className={`shrink-0 border-b ${
           hasPrimaryHeader
             ? "bg-primary border-primary text-primary-foreground"
             : "bg-card border-border"
         }`}>
-          <div className="flex items-center gap-2">
-            {title && (
-              <div>
-                <h1 className={`text-lg font-semibold ${hasPrimaryHeader ? "text-white" : ""}`}>{title}</h1>
-                {description && (
-                  <p className={`text-sm ${hasPrimaryHeader ? "text-white/80" : "text-muted-foreground"}`}>{description}</p>
-                )}
-              </div>
-            )}
+          <div className="flex h-16 items-center justify-between gap-2 px-6">
+            <div className="flex items-center gap-2">
+              {title && (
+                <div>
+                  <h1 className={`text-lg font-semibold ${hasPrimaryHeader ? "text-white" : ""}`}>{title}</h1>
+                  {description && (
+                    <p className={`text-sm ${hasPrimaryHeader ? "text-white/80" : "text-muted-foreground"}`}>{description}</p>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              {actions}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={handleAIButtonClick}
+                      className={`relative ${hasPrimaryHeader ? "text-white hover:bg-white/10" : ""}`}
+                    >
+                      {isAIPage ? (
+                        <X className="h-5 w-5" />
+                      ) : (
+                        <AutoAwesomeIcon sx={{ fontSize: 20, color: hasPrimaryHeader ? "white" : "inherit" }} />
+                      )}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{isAIPage ? "Close AI Agent" : "Let Aspire AI handle the heavy lifting."}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            {actions}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={handleAIButtonClick}
-                    className={`relative ${hasPrimaryHeader ? "text-white hover:bg-white/10" : ""}`}
-                  >
-                    {isAIPage ? (
-                      <X className="h-5 w-5" />
-                    ) : (
-                      <AutoAwesomeIcon sx={{ fontSize: 20, color: hasPrimaryHeader ? "white" : "inherit" }} />
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{isAIPage ? "Close AI Agent" : "Let Aspire AI handle the heavy lifting."}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+          {tabs && (
+            <div className="px-6 pb-3">
+              {tabs}
+            </div>
+          )}
         </header>
         <main className="flex-1 overflow-auto p-6">
           {children}
