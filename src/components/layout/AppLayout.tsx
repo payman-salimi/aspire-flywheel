@@ -26,6 +26,10 @@ export function AppLayout({ children, title, description, actions }: AppLayoutPr
 
   const isAIPage = location.pathname === "/automation";
 
+  // Pages that should have primary green header
+  const primaryHeaderPages = ["/creators", "/collaborations", "/campaigns", "/assets", "/analytics"];
+  const hasPrimaryHeader = primaryHeaderPages.some(path => location.pathname.startsWith(path));
+
   const handleAIButtonClick = () => {
     if (isAIPage) {
       navigate(-1); // Go back to previous page
@@ -38,13 +42,17 @@ export function AppLayout({ children, title, description, actions }: AppLayoutPr
     <div className="flex h-screen bg-background">
       <AppSidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-border bg-card px-6">
+        <header className={`flex h-16 shrink-0 items-center justify-between gap-2 border-b px-6 ${
+          hasPrimaryHeader
+            ? "bg-primary border-primary text-primary-foreground"
+            : "bg-card border-border"
+        }`}>
           <div className="flex items-center gap-2">
             {title && (
               <div>
-                <h1 className="text-lg font-semibold">{title}</h1>
+                <h1 className={`text-lg font-semibold ${hasPrimaryHeader ? "text-white" : ""}`}>{title}</h1>
                 {description && (
-                  <p className="text-sm text-muted-foreground">{description}</p>
+                  <p className={`text-sm ${hasPrimaryHeader ? "text-white/80" : "text-muted-foreground"}`}>{description}</p>
                 )}
               </div>
             )}
@@ -58,12 +66,12 @@ export function AppLayout({ children, title, description, actions }: AppLayoutPr
                     variant="ghost"
                     size="icon"
                     onClick={handleAIButtonClick}
-                    className="relative"
+                    className={`relative ${hasPrimaryHeader ? "text-white hover:bg-white/10" : ""}`}
                   >
                     {isAIPage ? (
                       <X className="h-5 w-5" />
                     ) : (
-                      <AutoAwesomeIcon sx={{ fontSize: 20 }} />
+                      <AutoAwesomeIcon sx={{ fontSize: 20, color: hasPrimaryHeader ? "white" : "inherit" }} />
                     )}
                   </Button>
                 </TooltipTrigger>
