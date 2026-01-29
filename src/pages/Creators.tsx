@@ -466,59 +466,6 @@ export default function Creators() {
         }
       >
         <div className="space-y-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div />
-            <div className="flex items-center gap-2">
-              {activeTab === "applicant" && (
-                <Select value={applicantFilter} onValueChange={(v) => setApplicantFilter(v as typeof applicantFilter)}>
-                  <SelectTrigger className="w-[140px]">
-                    <Filter className="mr-2 h-4 w-4" />
-                    <SelectValue placeholder="Filter" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-popover border shadow-lg z-50">
-                    <SelectItem value="all">All ({applicantCounts.all})</SelectItem>
-                    <SelectItem value="pending">Pending ({applicantCounts.pending})</SelectItem>
-                    <SelectItem value="yes">Yes ({applicantCounts.yes})</SelectItem>
-                    <SelectItem value="maybe">Maybe ({applicantCounts.maybe})</SelectItem>
-                    <SelectItem value="no">No ({applicantCounts.no})</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-              {activeTab !== "applicant" && (
-                <Select defaultValue="all">
-                  <SelectTrigger className="w-[130px]">
-                    <Filter className="mr-2 h-4 w-4" />
-                    <SelectValue placeholder="Platform" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-popover border shadow-lg z-50">
-                    <SelectItem value="all">All Platforms</SelectItem>
-                    <SelectItem value="instagram">Instagram</SelectItem>
-                    <SelectItem value="youtube">YouTube</SelectItem>
-                    <SelectItem value="tiktok">TikTok</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-              <div className="flex border rounded-md">
-                <Button
-                  variant={view === "grid" ? "secondary" : "ghost"}
-                  size="icon"
-                  className="rounded-r-none"
-                  onClick={() => setView("grid")}
-                >
-                  <Grid className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={view === "list" ? "secondary" : "ghost"}
-                  size="icon"
-                  className="rounded-l-none"
-                  onClick={() => setView("list")}
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
-
           <TabsContent value="discover" className="mt-6">
             {/* Filter Bar */}
             <div className="flex items-center justify-between gap-3 pb-4 border-b mb-6">
@@ -633,10 +580,49 @@ export default function Creators() {
               </Button>
             </div>
 
+            {/* View Toggle */}
+            <div className="flex justify-end mb-6">
+              <div className="flex border rounded-md">
+                <Button
+                  variant={view === "grid" ? "secondary" : "ghost"}
+                  size="icon"
+                  className="rounded-r-none"
+                  onClick={() => setView("grid")}
+                >
+                  <Grid className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant={view === "list" ? "secondary" : "ghost"}
+                  size="icon"
+                  className="rounded-l-none"
+                  onClick={() => setView("list")}
+                >
+                  <List className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
             {renderCreatorGrid(discoverCreators)}
           </TabsContent>
 
           <TabsContent value="applicant" className="mt-6">
+            {/* Filter Controls */}
+            <div className="flex justify-end mb-6">
+              <Select value={applicantFilter} onValueChange={(v) => setApplicantFilter(v as typeof applicantFilter)}>
+                <SelectTrigger className="w-[140px]">
+                  <Filter className="mr-2 h-4 w-4" />
+                  <SelectValue placeholder="Filter" />
+                </SelectTrigger>
+                <SelectContent className="bg-popover border shadow-lg z-50">
+                  <SelectItem value="all">All ({applicantCounts.all})</SelectItem>
+                  <SelectItem value="pending">Pending ({applicantCounts.pending})</SelectItem>
+                  <SelectItem value="yes">Yes ({applicantCounts.yes})</SelectItem>
+                  <SelectItem value="maybe">Maybe ({applicantCounts.maybe})</SelectItem>
+                  <SelectItem value="no">No ({applicantCounts.no})</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
             {/* Bulk Actions Bar */}
             {selectedApplicants.size > 0 && (
               <div className="mb-4 flex items-center justify-between rounded-lg border bg-muted/50 p-3">
