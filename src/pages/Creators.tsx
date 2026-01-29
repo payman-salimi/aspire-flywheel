@@ -310,9 +310,9 @@ export default function Creators() {
 
   // Discover tab filter states
   const [savedFilter, setSavedFilter] = useState("all");
-  const [projectFilter, setProjectFilter] = useState("all");
-  const [tagFilter, setTagFilter] = useState("all");
-  const [groupFilter, setGroupFilter] = useState("all");
+  const [networkFilter, setNetworkFilter] = useState("all");
+  const [industryFilter, setIndustryFilter] = useState("all");
+  const [locationFilter, setLocationFilter] = useState("all");
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -497,22 +497,22 @@ export default function Creators() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-8">
-                      Projects
+                      Network
                       <ChevronDown className="ml-2 h-3.5 w-3.5" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
-                    <DropdownMenuItem onClick={() => setProjectFilter("all")}>
-                      All Projects
+                    <DropdownMenuItem onClick={() => setNetworkFilter("all")}>
+                      All Networks
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setProjectFilter("summer-collection")}>
-                      Summer Collection
+                    <DropdownMenuItem onClick={() => setNetworkFilter("instagram")}>
+                      Instagram
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setProjectFilter("product-review")}>
-                      Product Review
+                    <DropdownMenuItem onClick={() => setNetworkFilter("youtube")}>
+                      YouTube
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setProjectFilter("holiday-promo")}>
-                      Holiday Promo
+                    <DropdownMenuItem onClick={() => setNetworkFilter("tiktok")}>
+                      TikTok
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -520,24 +520,24 @@ export default function Creators() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-8">
-                      Tags
+                      Industry
                       <ChevronDown className="ml-2 h-3.5 w-3.5" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
-                    <DropdownMenuItem onClick={() => setTagFilter("all")}>
-                      All Tags
+                    <DropdownMenuItem onClick={() => setIndustryFilter("all")}>
+                      All Industries
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTagFilter("fashion")}>
+                    <DropdownMenuItem onClick={() => setIndustryFilter("fashion")}>
                       Fashion
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTagFilter("beauty")}>
+                    <DropdownMenuItem onClick={() => setIndustryFilter("beauty")}>
                       Beauty
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTagFilter("lifestyle")}>
+                    <DropdownMenuItem onClick={() => setIndustryFilter("lifestyle")}>
                       Lifestyle
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTagFilter("fitness")}>
+                    <DropdownMenuItem onClick={() => setIndustryFilter("fitness")}>
                       Fitness
                     </DropdownMenuItem>
                   </DropdownMenuContent>
@@ -546,25 +546,25 @@ export default function Creators() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm" className="h-8">
-                      Groups
+                      Locations
                       <ChevronDown className="ml-2 h-3.5 w-3.5" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start">
-                    <DropdownMenuItem onClick={() => setGroupFilter("all")}>
-                      All Groups
+                    <DropdownMenuItem onClick={() => setLocationFilter("all")}>
+                      All Locations
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setGroupFilter("tier-1")}>
-                      Tier 1 - Mega
+                    <DropdownMenuItem onClick={() => setLocationFilter("north-america")}>
+                      North America
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setGroupFilter("tier-2")}>
-                      Tier 2 - Macro
+                    <DropdownMenuItem onClick={() => setLocationFilter("europe")}>
+                      Europe
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setGroupFilter("tier-3")}>
-                      Tier 3 - Micro
+                    <DropdownMenuItem onClick={() => setLocationFilter("asia")}>
+                      Asia
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setGroupFilter("tier-4")}>
-                      Tier 4 - Nano
+                    <DropdownMenuItem onClick={() => setLocationFilter("other")}>
+                      Other
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
