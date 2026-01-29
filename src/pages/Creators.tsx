@@ -314,6 +314,12 @@ export default function Creators() {
   const [industryFilter, setIndustryFilter] = useState("all");
   const [locationFilter, setLocationFilter] = useState("all");
 
+  // Applicants tab filter states
+  const [applicantSavedFilter, setApplicantSavedFilter] = useState("all");
+  const [applicantNetworkFilter, setApplicantNetworkFilter] = useState("all");
+  const [decisionFilter, setDecisionFilter] = useState("all");
+  const [applicantLocationFilter, setApplicantLocationFilter] = useState("all");
+
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
     toast.success("Link copied!", {
@@ -393,8 +399,8 @@ export default function Creators() {
   };
 
   const filteredApplicants = applicants.filter(a => {
-    if (applicantFilter === "all") return true;
-    return a.status === applicantFilter;
+    if (decisionFilter === "all") return true;
+    return a.status === decisionFilter;
   });
 
   const applicantCounts = {
@@ -606,21 +612,117 @@ export default function Creators() {
           </TabsContent>
 
           <TabsContent value="applicant" className="mt-6">
-            {/* Filter Controls */}
-            <div className="flex justify-end mb-6">
-              <Select value={applicantFilter} onValueChange={(v) => setApplicantFilter(v as typeof applicantFilter)}>
-                <SelectTrigger className="w-[140px]">
-                  <Filter className="mr-2 h-4 w-4" />
-                  <SelectValue placeholder="Filter" />
-                </SelectTrigger>
-                <SelectContent className="bg-popover border shadow-lg z-50">
-                  <SelectItem value="all">All ({applicantCounts.all})</SelectItem>
-                  <SelectItem value="pending">Pending ({applicantCounts.pending})</SelectItem>
-                  <SelectItem value="yes">Yes ({applicantCounts.yes})</SelectItem>
-                  <SelectItem value="maybe">Maybe ({applicantCounts.maybe})</SelectItem>
-                  <SelectItem value="no">No ({applicantCounts.no})</SelectItem>
-                </SelectContent>
-              </Select>
+            {/* Filter Bar */}
+            <div className="flex items-center justify-between gap-3 pb-4 border-b mb-6">
+              <div className="flex items-center gap-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8">
+                      <Bookmark className="mr-2 h-3.5 w-3.5" />
+                      Saved Filter
+                      <ChevronDown className="ml-2 h-3.5 w-3.5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => setApplicantSavedFilter("all")}>
+                      All Applicants
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantSavedFilter("approved")}>
+                      Approved
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantSavedFilter("under-review")}>
+                      Under Review
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantSavedFilter("rejected")}>
+                      Rejected
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8">
+                      Network
+                      <ChevronDown className="ml-2 h-3.5 w-3.5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => setApplicantNetworkFilter("all")}>
+                      All Networks
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantNetworkFilter("instagram")}>
+                      Instagram
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantNetworkFilter("youtube")}>
+                      YouTube
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantNetworkFilter("tiktok")}>
+                      TikTok
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8">
+                      Decision
+                      <ChevronDown className="ml-2 h-3.5 w-3.5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => setDecisionFilter("all")}>
+                      All Decisions
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setDecisionFilter("yes")}>
+                      Yes
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setDecisionFilter("no")}>
+                      No
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setDecisionFilter("pending")}>
+                      Pending
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setDecisionFilter("maybe")}>
+                      Maybe
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8">
+                      Locations
+                      <ChevronDown className="ml-2 h-3.5 w-3.5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => setApplicantLocationFilter("all")}>
+                      All Locations
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantLocationFilter("north-america")}>
+                      North America
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantLocationFilter("europe")}>
+                      Europe
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantLocationFilter("asia")}>
+                      Asia
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setApplicantLocationFilter("other")}>
+                      Other
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <Button variant="outline" size="sm" className="h-8">
+                  <Plus className="mr-2 h-3.5 w-3.5" />
+                  Add Filter
+                </Button>
+              </div>
+
+              <Button variant="outline" size="sm" className="h-8">
+                Save Filter
+              </Button>
             </div>
 
             {/* Bulk Actions Bar */}
