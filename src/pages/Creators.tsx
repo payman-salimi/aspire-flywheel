@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { CreatorGridCard } from "@/components/creators/CreatorGridCard";
 import { CreatorCard } from "@/components/creators/CreatorCard";
-import { AISearchInput } from "@/components/creators/AISearchInput";
 import { ApplicantCard, ApplicantStatus } from "@/components/creators/ApplicantCard";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,9 +12,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Filter, Grid, List, Share2, Sparkles, CheckCircle2, XCircle, HelpCircle, X } from "lucide-react";
+import { Filter, Grid, List, Share2, Sparkles, CheckCircle2, XCircle, HelpCircle, X, ChevronDown, Bookmark, Plus } from "lucide-react";
 import { toast } from "sonner";
 
 type Platform = "instagram" | "youtube" | "tiktok";
@@ -303,12 +308,11 @@ export default function Creators() {
   const [applicantFilter, setApplicantFilter] = useState<"all" | ApplicantStatus>("all");
   const [selectedApplicants, setSelectedApplicants] = useState<Set<string>>(new Set());
 
-  const handleAISearch = (query: string) => {
-    setSearchQuery(query);
-    toast.success("AI Search", {
-      description: `Searching for creators: "${query}"`,
-    });
-  };
+  // Discover tab filter states
+  const [savedFilter, setSavedFilter] = useState("all");
+  const [projectFilter, setProjectFilter] = useState("all");
+  const [tagFilter, setTagFilter] = useState("all");
+  const [groupFilter, setGroupFilter] = useState("all");
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -516,13 +520,119 @@ export default function Creators() {
           </div>
 
           <TabsContent value="discover" className="mt-6">
-            {/* AI Search - Only on Discover tab */}
-            <div className="mb-6">
-              <AISearchInput
-                onSearch={handleAISearch}
-                placeholder="Find creators who post about skincare, have 50K+ followers..."
-              />
+            {/* Filter Bar */}
+            <div className="flex items-center justify-between gap-3 pb-4 border-b mb-6">
+              <div className="flex items-center gap-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8">
+                      <Bookmark className="mr-2 h-3.5 w-3.5" />
+                      Saved Filter
+                      <ChevronDown className="ml-2 h-3.5 w-3.5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => setSavedFilter("all")}>
+                      All Creators
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSavedFilter("beauty-creators")}>
+                      Beauty Creators
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSavedFilter("mention-listening")}>
+                      Mention Listening
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSavedFilter("customers")}>
+                      Customers
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8">
+                      Projects
+                      <ChevronDown className="ml-2 h-3.5 w-3.5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => setProjectFilter("all")}>
+                      All Projects
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setProjectFilter("summer-collection")}>
+                      Summer Collection
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setProjectFilter("product-review")}>
+                      Product Review
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setProjectFilter("holiday-promo")}>
+                      Holiday Promo
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8">
+                      Tags
+                      <ChevronDown className="ml-2 h-3.5 w-3.5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => setTagFilter("all")}>
+                      All Tags
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTagFilter("fashion")}>
+                      Fashion
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTagFilter("beauty")}>
+                      Beauty
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTagFilter("lifestyle")}>
+                      Lifestyle
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTagFilter("fitness")}>
+                      Fitness
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8">
+                      Groups
+                      <ChevronDown className="ml-2 h-3.5 w-3.5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    <DropdownMenuItem onClick={() => setGroupFilter("all")}>
+                      All Groups
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setGroupFilter("tier-1")}>
+                      Tier 1 - Mega
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setGroupFilter("tier-2")}>
+                      Tier 2 - Macro
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setGroupFilter("tier-3")}>
+                      Tier 3 - Micro
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setGroupFilter("tier-4")}>
+                      Tier 4 - Nano
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                <Button variant="outline" size="sm" className="h-8">
+                  <Plus className="mr-2 h-3.5 w-3.5" />
+                  Add Filter
+                </Button>
+              </div>
+
+              <Button variant="outline" size="sm" className="h-8">
+                Save Filter
+              </Button>
             </div>
+
             {renderCreatorGrid(discoverCreators)}
           </TabsContent>
 
