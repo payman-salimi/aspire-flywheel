@@ -447,12 +447,9 @@ export default function Creators() {
       <div className="space-y-6">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <TabsList variant="line">
+            <TabsList>
               <TabsTrigger value="discover">Discover</TabsTrigger>
-              <TabsTrigger value="customers">Customers</TabsTrigger>
-              <TabsTrigger value="mentions">Mentions</TabsTrigger>
-              <TabsTrigger value="shortlist">Shortlist</TabsTrigger>
-              <TabsTrigger value="applicant">Applicant</TabsTrigger>
+              <TabsTrigger value="applicant">Applicants</TabsTrigger>
             </TabsList>
             <div className="flex items-center gap-2">
               {activeTab === "applicant" && (
@@ -508,34 +505,12 @@ export default function Creators() {
           <TabsContent value="discover" className="mt-6">
             {/* AI Search - Only on Discover tab */}
             <div className="mb-6">
-              <AISearchInput 
+              <AISearchInput
                 onSearch={handleAISearch}
                 placeholder="Find creators who post about skincare, have 50K+ followers..."
               />
             </div>
             {renderCreatorGrid(discoverCreators)}
-          </TabsContent>
-
-          <TabsContent value="customers" className="mt-6">
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <p className="text-muted-foreground">No customer creators yet</p>
-              <p className="text-sm text-muted-foreground mt-1">
-                Creators who have purchased from you will appear here
-              </p>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="mentions" className="mt-6">
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <p className="text-muted-foreground">No mentions found</p>
-              <p className="text-sm text-muted-foreground mt-1">
-                Creators who have mentioned your brand will appear here
-              </p>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="shortlist" className="mt-6">
-            {renderCreatorGrid(shortlistCreators)}
           </TabsContent>
 
           <TabsContent value="applicant" className="mt-6">
