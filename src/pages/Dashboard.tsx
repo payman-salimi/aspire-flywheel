@@ -174,7 +174,7 @@ export default function Dashboard() {
             </div>
 
             {/* Recent Content - Horizontal Scroll */}
-            <div className="bg-card rounded-lg border">
+            <div className="bg-card rounded-lg border flex-1">
               <div className="p-6 pb-4 border-b">
                 <div className="flex items-center justify-between">
                   <div>
@@ -392,11 +392,11 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+
+            {/* Discover Creators */}
+            <DiscoverCreators />
           </div>
         </div>
-
-        {/* Discover Creators */}
-        <DiscoverCreators />
       </div>
     </AppLayout>
   );
