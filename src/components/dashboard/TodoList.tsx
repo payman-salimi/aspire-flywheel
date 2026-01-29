@@ -149,7 +149,7 @@ export function TodoList() {
         </div>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[750px] pr-4">
+        <ScrollArea className="h-[1200px] pr-4">
           <Collapsible open={isTodayOpen} onOpenChange={setIsTodayOpen}>
             <CollapsibleTrigger className="flex items-center justify-between w-full py-2 hover:bg-muted/50 rounded-md px-2 transition-colors">
               <div className="flex items-center gap-2">
